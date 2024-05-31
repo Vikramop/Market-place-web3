@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-contract Simple3DAssetMarketplace is ERC721 {
+contract 3DAssetMarketplace is ERC721 {
     uint256 private _tokenIds;
 
     uint256 public listingPrice = 0.025 ether;
