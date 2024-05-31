@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-contract 3DAssetMarketplace is ERC721 {
+contract Marketplace is ERC721 {
     uint256 private _tokenIds;
 
     uint256 public listingPrice = 0.025 ether;
@@ -33,8 +33,14 @@ contract 3DAssetMarketplace is ERC721 {
         _tokenIds = 0;
     }
 
-    function createToken(string memory tokenSymbol, uint256 price) public payable {
-        require(msg.value == listingPrice, "Price must be equal to listing price");
+    function createToken(
+        string memory tokenSymbol,
+        uint256 price
+    ) public payable {
+        require(
+            msg.value == listingPrice,
+            "Price must be equal to listing price"
+        );
 
         _tokenIds += 1;
         uint256 newTokenId = _tokenIds;
@@ -61,7 +67,10 @@ contract 3DAssetMarketplace is ERC721 {
 
     function purchaseToken(uint256 tokenId) public payable {
         MarketItem storage item = idToMarketItem[tokenId];
-        require(msg.value == item.price, "Please submit the asking price in order to complete the purchase");
+        require(
+            msg.value == item.price,
+            "Please submit the asking price in order to complete the purchase"
+        );
         require(!item.sold, "This item has already been sold");
 
         item.seller.transfer(msg.value);
@@ -91,7 +100,9 @@ contract 3DAssetMarketplace is ERC721 {
         return items;
     }
 
-    function getTokenSymbol(uint256 tokenId) public view returns (string memory) {
+    function getTokenSymbol(
+        uint256 tokenId
+    ) public view returns (string memory) {
         return _tokenSymbols[tokenId];
     }
 }
